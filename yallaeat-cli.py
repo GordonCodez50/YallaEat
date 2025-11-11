@@ -43,8 +43,8 @@ def init_db():
         )
         cursor = conn.cursor()
         
-        cursor.execute("CREATE DATABASE IF NOT EXISTS talabat_db")
-        cursor.execute("USE talabat_db")
+        cursor.execute("CREATE DATABASE IF NOT EXISTS yallaeat_db")
+        cursor.execute("USE yallaeat_db")
         
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS users (
@@ -103,7 +103,7 @@ def get_db_connection():
         host=DB_HOST,
         user=DB_USER,
         password=DB_PASSWORD,
-        database='talabat_db'
+        database='yallaeat_db'
     )
     return conn
 
@@ -658,7 +658,7 @@ def main():
     while True:
         clear_screen()
         print("\n" + "=" * 60)
-        print("|" + "TALABAT CLI - FOOD ORDERING SYSTEM".center(58) + "|")
+        print("|" + "YALLAEAT CLI - FOOD ORDERING SYSTEM".center(58) + "|")
         print("=" * 60)
         print("|" + "Welcome! Please choose an option below".center(58) + "|")
         print("=" * 60 + "\n")
@@ -683,7 +683,7 @@ def main():
             register_user()
             
         elif choice == '3':
-            print_message("Thank you for using Talabat CLI. Goodbye!")
+            print_message("Thank you for using YallaEat CLI. Goodbye!")
             break
             
         else:
