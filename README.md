@@ -43,30 +43,33 @@ Before running YallaEat CLI, ensure you have the following installed:
    cd YallaEat
    ```
 
-2. **Install required Python packages**:
-   ```bash
-   pip install mysql-connector-python tabulate
-   ```
-
-3. **Configure MySQL Database**:
+2. **Configure MySQL Database**:
    - Ensure MySQL server is running
-   - Update database credentials in `yallaeat-cli.py` if needed:
+   - Update database credentials in `install-requirements.py` if needed:
      ```python
      DB_HOST = 'localhost'
      DB_USER = 'root'
      DB_PASSWORD = '1234'  # Change to your MySQL password
      ```
 
+3. **Run the setup script**:
+   ```bash
+   python install-requirements.py
+   ```
+   
+   This script will:
+   - Automatically install required Python packages (`mysql-connector-python`, `tabulate`)
+   - Create the database (`yallaeat_db`) and tables
+   - Populate the database with 20 restaurants and 200+ menu items
+
 4. **Run the application**:
    ```bash
    python yallaeat-cli.py
    ```
 
-   The application will automatically create the required database (`talabat_db`) and tables on first run.
-
 ## Database Schema
 
-The system uses four main tables:
+The application uses the `yallaeat_db` database with four main tables:
 
 - **users**: Stores user accounts (username, password, role)
 - **restaurants**: Restaurant information (name, location)
@@ -93,9 +96,9 @@ Orders automatically update from "Pending" to "Delivered" after the estimated de
 ```
 YallaEat/
 ├── yallaeat-cli.py          # Main application file
+├── install-requirements.py  # Setup script for dependencies and database
 ├── README.md                # This file
-├── Console_Output_Examples.md   # Console output examples
-└── HTU.md                   # How to use guide
+└── Console_Output_Examples.md   # Console output examples
 ```
 
 ## Contributing
