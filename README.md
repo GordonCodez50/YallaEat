@@ -19,7 +19,7 @@ YallaEat is a command-line interface (CLI) based food ordering system built with
 - **User Management**: View all registered users
 - **Order Status Updates**: Mark orders as Pending, Delivered, or Cancelled
 
-## Technology Stack
+## Stack
 
 - **Language**: Python 3
 - **Database**: MySQL
@@ -33,7 +33,6 @@ Before running YallaEat CLI, ensure you have the following installed:
 
 1. **Python 3.x** - [Download Python](https://www.python.org/downloads/)
 2. **MySQL Server** - [Download MySQL](https://dev.mysql.com/downloads/mysql/)
-3. **pip** - Python package installer (usually comes with Python)
 
 ## Installation
 
