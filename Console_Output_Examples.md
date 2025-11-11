@@ -6,7 +6,7 @@ This document provides examples of console outputs from the YallaEat CLI applica
 
 ```
 ============================================================
-|        TALABAT CLI - FOOD ORDERING SYSTEM               |
+|        YALLAEAT CLI - FOOD ORDERING SYSTEM              |
 ============================================================
 |       Welcome! Please choose an option below             |
 ============================================================
