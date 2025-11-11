@@ -3,17 +3,14 @@ import time
 import subprocess
 import sys
 
-# List of required packages
 required_packages = ["mysql-connector-python", "tabulate"]
 
-# Function to install a package via pip
 def install_package(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
-# Try importing packages, install if missing
 for package in required_packages:
     try:
-        __import__(package.split("-")[0])  # mysql-connector-python -> mysql
+        __import__(package.split("-")[0])
     except ImportError:
         print(f"Package '{package}' not found. Installing...")
         install_package(package)
@@ -22,11 +19,9 @@ DB_HOST = 'localhost'
 DB_USER = 'root'
 DB_PASSWORD = '1234'
 
-# Loading animation
 def show_loading(message):
     print(message + ".")
 
-# Message box
 def print_message(message):
     print("\n" + message + "\n")
 
@@ -88,7 +83,6 @@ try:
 
     print_message("Database and tables created successfully!")
 
-    # Preset restaurants (ordered — IDs will be 1..N)
     restaurants = [
         ("Papa John's", "Adliya"),
         ("KFC", "Manama"),
@@ -102,10 +96,16 @@ try:
         ("Tim Hortons", "Seef"),
         ("Costa Coffee", "Manama"),
         ("Starbucks", "Seef"),
-        ("Domino's", "Muharraq")
+        ("Domino's", "Muharraq"),
+        ("Chili's", "Seef"),
+        ("TGI Fridays", "Juffair"),
+        ("Nando's", "Manama"),
+        ("Johnny Rockets", "Adliya"),
+        ("Hardee's", "Muharraq"),
+        ("Texas Chicken", "Manama"),
+        ("Shake Shack", "Seef")
     ]
 
-    # Only insert restaurants if table is empty (prevents duplicates)
     cursor.execute("SELECT COUNT(*) FROM restaurants")
     rest_count = cursor.fetchone()[0]
     if rest_count == 0:
@@ -119,9 +119,7 @@ try:
     else:
         print_message(f"Restaurants table already has {rest_count} entries — skipping insert.")
 
-    # Preset menu items (restaurant_id, item_name, price in BHD)
     menu_items = [
-        # Papa John's (ID: 1)
         (1, "Medium Pepperoni Pizza", 2.50),
         (1, "Large Supreme Pizza", 3.50),
         (1, "Margherita Pizza (Medium)", 2.00),
@@ -133,7 +131,6 @@ try:
         (1, "Soft Drink (Can)", 0.30),
         (1, "Chocolate Brownie", 0.60),
 
-        # KFC (ID: 2)
         (2, "Zinger Burger", 1.00),
         (2, "Original Recipe Bucket (8pcs)", 3.00),
         (2, "Hot Wings (6pcs)", 1.20),
@@ -145,7 +142,6 @@ try:
         (2, "Buttermilk Biscuit", 0.25),
         (2, "Soft Drink (Can)", 0.25),
 
-        # McDonald's (ID: 3)
         (3, "Big Mac", 1.00),
         (3, "McChicken", 0.80),
         (3, "Cheeseburger", 0.50),
@@ -157,7 +153,6 @@ try:
         (3, "Apple Pie", 0.35),
         (3, "Filter Coffee", 0.30),
 
-        # Burger King (ID: 4)
         (4, "Whopper", 1.20),
         (4, "Chicken Royale", 1.00),
         (4, "BK Double", 1.60),
@@ -169,7 +164,6 @@ try:
         (4, "Garden Salad", 0.70),
         (4, "Pancakes (2pc)", 0.65),
 
-        # Subway (ID: 5)
         (5, "Footlong Italian BMT", 1.20),
         (5, "Footlong Chicken Teriyaki", 1.20),
         (5, "6\" Veggie Delite", 0.70),
@@ -181,7 +175,6 @@ try:
         (5, "Bottle Drink (500ml)", 0.35),
         (5, "Oven Baked Fries", 0.40),
 
-        # Pizza Hut (ID: 6)
         (6, "Personal Margherita", 1.50),
         (6, "Medium Supreme", 3.20),
         (6, "Large Pepperoni", 3.80),
@@ -193,7 +186,6 @@ try:
         (6, "Chocolate Lava Cake", 0.90),
         (6, "Soft Drink (2L)", 0.90),
 
-        # Lebanese Restaurant (ID: 7)
         (7, "Mixed Grill Platter", 3.50),
         (7, "Shawarma Plate (Chicken)", 1.20),
         (7, "Falafel Plate", 0.80),
@@ -205,7 +197,6 @@ try:
         (7, "Grilled Halloumi", 1.00),
         (7, "Lebanese Sweets Plate", 1.00),
 
-        # Indian Delights (ID: 8)
         (8, "Chicken Biryani", 1.20),
         (8, "Butter Chicken (Medium)", 1.50),
         (8, "Paneer Makhani", 1.30),
@@ -217,7 +208,6 @@ try:
         (8, "Masala Dosa", 0.90),
         (8, "Gulab Jamun (2pcs)", 0.25),
 
-        # Apple Restaurant (ID: 9)
         (9, "Grilled Chicken Salad", 1.00),
         (9, "Signature Apple Pie", 0.40),
         (9, "Beef Steak (200g)", 3.50),
@@ -229,7 +219,6 @@ try:
         (9, "Fruit Smoothie (300ml)", 0.70),
         (9, "Fresh Juice (Orange)", 0.40),
 
-        # Tim Hortons (ID: 10)
         (10, "Original Blend Coffee (Small)", 0.30),
         (10, "Iced Capp (Regular)", 0.80),
         (10, "Timbits (6pcs)", 0.50),
@@ -241,7 +230,6 @@ try:
         (10, "Muffin (Blueberry)", 0.45),
         (10, "Tea (Small)", 0.25),
 
-        # Costa Coffee (ID: 11)
         (11, "Flat White", 0.45),
         (11, "Cappuccino", 0.45),
         (11, "Latte", 0.45),
@@ -253,7 +241,6 @@ try:
         (11, "Iced Latte", 0.60),
         (11, "Bottled Water (500ml)", 0.20),
 
-        # Starbucks (ID: 12)
         (12, "Caffè Americano", 0.45),
         (12, "Caffè Latte", 0.55),
         (12, "Cappuccino", 0.55),
@@ -265,7 +252,6 @@ try:
         (12, "Protein Box", 1.80),
         (12, "Cold Brew (Bottle)", 0.80),
 
-        # Domino's (ID: 13)
         (13, "Margherita (Medium)", 1.40),
         (13, "Pepperoni Feast (Large)", 3.50),
         (13, "Veggie Supreme (Medium)", 2.80),
@@ -275,10 +261,86 @@ try:
         (13, "Cheesy Dip", 0.20),
         (13, "Chicken Strips (5pcs)", 1.20),
         (13, "Potato Wedges", 0.70),
-        (13, "Choco Lava Cake", 0.90)
+        (13, "Choco Lava Cake", 0.90),
+
+        (14, "Classic Bacon Burger", 2.50),
+        (14, "Texas Cheese Fries", 1.80),
+        (14, "Chicken Crispers", 2.20),
+        (14, "Baby Back Ribs (Full)", 4.50),
+        (14, "Margarita Grilled Chicken", 3.00),
+        (14, "Quesadilla Explosion", 2.80),
+        (14, "Molten Chocolate Cake", 1.50),
+        (14, "House Salad", 1.20),
+        (14, "Soft Drink (Refillable)", 0.80),
+        (14, "Mango Iced Tea", 0.90),
+
+        (15, "Jack Daniel's Burger", 3.20),
+        (15, "Mozzarella Sticks", 1.50),
+        (15, "Cajun Shrimp Pasta", 3.80),
+        (15, "Loaded Potato Skins", 2.00),
+        (15, "BBQ Chicken Wrap", 2.50),
+        (15, "French Onion Soup", 1.80),
+        (15, "Brownie Obsession", 2.20),
+        (15, "Caesar Salad", 1.60),
+        (15, "Strawberry Lemonade", 0.95),
+        (15, "Coke Float", 1.10),
+
+        (16, "Chicken Platter (1/4)", 2.50),
+        (16, "Chicken Platter (1/2)", 4.00),
+        (16, "Chicken Burger", 2.20),
+        (16, "Peri-Peri Chips", 1.00),
+        (16, "Grilled Chicken Wrap", 2.30),
+        (16, "Spicy Rice", 0.80),
+        (16, "Garlic Bread", 0.60),
+        (16, "Coleslaw (Side)", 0.70),
+        (16, "Peri-Peri Wings (5pcs)", 1.80),
+        (16, "Chocolate Cake", 1.20),
+
+        (17, "Original Burger", 2.80),
+        (17, "Bacon Cheeseburger", 3.20),
+        (17, "Chicken Sandwich", 2.50),
+        (17, "Onion Rings", 1.20),
+        (17, "Chili Cheese Fries", 1.80),
+        (17, "Vanilla Milkshake", 1.50),
+        (17, "Apple Pie", 1.00),
+        (17, "Garden Salad", 1.40),
+        (17, "Soft Drink (Fountain)", 0.75),
+        (17, "Strawberry Shake", 1.50),
+
+        (18, "Famous Star Burger", 1.80),
+        (18, "Monster Thickburger", 3.50),
+        (18, "Chicken Fillet Sandwich", 1.60),
+        (18, "Natural Cut Fries", 0.90),
+        (18, "Hand-Breaded Chicken Tenders", 1.40),
+        (18, "Biscuit 'n' Gravy", 1.20),
+        (18, "Apple Turnover", 0.70),
+        (18, "Soft Drink (Medium)", 0.60),
+        (18, "Chocolate Chip Cookie", 0.50),
+        (18, "Breakfast Platter", 2.00),
+
+        (19, "Classic Chicken Sandwich", 1.40),
+        (19, "3-Piece Chicken Tenders", 1.80),
+        (19, "Honey Butter Biscuit", 0.80),
+        (19, "Spicy Chicken Sandwich", 1.50),
+        (19, "Crinkle Cut Fries", 0.70),
+        (19, "Coleslaw (Cup)", 0.50),
+        (19, "Buttermilk Biscuit", 0.40),
+        (19, "Soft Drink (Regular)", 0.55),
+        (19, "Chocolate Chip Muffin", 0.65),
+        (19, "Chicken & Biscuit Meal", 2.50),
+
+        (20, "ShackBurger", 2.80),
+        (20, "SmokeShack", 3.20),
+        (20, "Chicken Shack", 2.60),
+        (20, "Shack-cago Dog", 2.40),
+        (20, "Crinkle Cut Fries", 1.20),
+        (20, "Shake (Vanilla)", 1.80),
+        (20, "Floats", 1.50),
+        (20, "Concrete (Frozen Custard)", 2.00),
+        (20, "Lemonade", 1.00),
+        (20, "Cheese Fries", 1.60)
     ]
 
-    # Only insert menu items if table is empty
     cursor.execute("SELECT COUNT(*) FROM menu")
     menu_count = cursor.fetchone()[0]
     if menu_count == 0:
